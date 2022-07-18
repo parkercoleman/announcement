@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Announcement</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+<div class="row">
+    <p id="countdownTimerParagraph"></p>
+</div>
+<div class="container-fluid" id="main-div" hidden="true">
+    <div class="row">
+        <p id="stepParagraph"></p>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-auto">
+            <div id="grid" style="border: solid #333333 1px;"></div>
+        </div>
+    </div>
+    <div class="row justify-content-md-center" id="button-row-1" hidden="true">
+        <div class="col-md-auto">
+            <button type="button" class="btn btn-primary btn-lg" id="Reset" onclick="resetSimulation()">Reset
+            </button>
+        </div>
+        <div class="col-md-auto">
+            <button type="button" class="btn btn-primary btn-lg" id="Play" onclick="playSimulation()">Play</button>
+        </div>
+        <div class="col-md-auto">
+            <button type="button" class="btn btn-primary btn-lg" id="Pause" onclick="pauseSimulation()">Pause
+            </button>
+        </div>
+        <!--
+        <div class="col-sm">
+            <button type="button" class="btn btn-primary btn-lg" id="Print Simulation State" hidden="true"
+                    onclick="printSimulationState()">Print Simulation State
+            </button>
+        </div> -->
+    </div>
+    <div class="row justify-content-md-center mt-2" id="button-row-2" hidden="true">
+        <div class="col-md-auto">
+            <button type="button" class="btn btn-primary btn-lg" id="WhatisthisButton" data-bs-toggle="modal"
+                    data-bs-target="#whatIsThisModal">What is this?
+            </button>
+        </div>
+        <div class="col-md-auto">
+            <button type="button" class="btn btn-primary btn-lg" id="WhatisitreallyButton" data-bs-toggle="modal"
+                    data-bs-target="#whatIsThisReallyModal">What is it really?
+            </button>
+        </div>
+        <div class="col-md-auto">
+            <button type="button" class="btn btn-primary btn-lg" id="ItlooksbadButton" data-bs-toggle="modal"
+                    data-bs-target="#itLooksBadModal">Why does it look so bad?<br> Don't you work for Amazon?
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="whatIsThisModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>Nina and Parker are having a baby, and it's a girl :)</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ah, ok</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Congratulations</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="whatIsThisReallyModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>
+                    The "Game of Life" was Invented by John Conway in 1970. It is a "zero player game"
+                    where the initial state of the simulation dictates all future states. While early players
+                    calculated steps of the simulation <em>by hand</em>, the game quickly took off among
+                    computer programmers and is still popular today.
+                </p>
+                <p>
+                    The game simulates the interactions of simple single cell organisms on an infinite 2 dimensional
+                    grid. Each space of the grid can contain a "cell", which can either be "alive" or "dead"
+                    (the color of the cell doesn't matter, changing the color was just for fun).
+                    The rules of the simulation are:
+                </p>
+                <ul>
+                    <li>Any live cell with fewer than two live neighbours dies, as if by underpopulation.</li>
+                    <li>Any live cell with two or three live neighbours lives on to the next generation.</li>
+                    <li>Any live cell with more than three live neighbours dies, as if by overpopulation.</li>
+                    <li>Any dead cell with exactly three live neighbours becomes a live cell, as if by
+                        reproduction.
+                    </li>
+                </ul>
+                <p>
+                    From this simple set of rules, incredibly complex and chaotic patterns can emerge in a way that
+                    is impossible to predict. In this way, the game can be seen as a metaphor for life, where simple
+                    every day interactions and occurrences can have wildly unpredictable, and beautiful, outcomes.
+                </p>
+                <p>
+                    We've just witnessed this simulation run in reverse, all the way down to step 0, which is our gender
+                    announcement.  Just as we can't predict how an arbitrary initial state of the Game of Life will
+                    unfold, we can't predict what the future will hold for our daughter, but I know that we
+                    and everyone reading this hopes it will be wonderful.
+                </p>
+                <p>
+                    This announcement is also an implementation of the game:  When the game is reset, clicking on a grid
+                    square will toggle the cell's state (either alive, or dead).  The Play button will begin the
+                    simulation, and the steps will begin to count up as generations of the cells are calculated.  The
+                    Pause button pauses the simulation, and the Reset button will reset the board back to Step 0.  What
+                    would our child's life be like if they were born a boy? Or if I had used a lowercase "a" for the
+                    phrase "it's a girl"?; I guess we'll never know, but with this program, we can at least find out
+                    what the simulation looks like.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="itLooksBadModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>They don't let me work on UI stuff though</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Good</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // Set the date we're counting down to
+    //var countDownDate = new Date("July 15, 2022 18:48:00 PDT").getTime();
+
+    //ACTUAL ANNOUNCEMENT DATE, UNCOMMENT THIS BEFORE DEPLOYING
+    var countDownDate = new Date("July 16, 2022 12:05:00 EST").getTime();
+    console.log("Countdown Date is " + countDownDate);
+    var dateExpired = false;
+
+    var countdownTimerInterval = setInterval(function () {
+
+        // Get today's date and time
+        var currentTime = new Date().getTime();
+        console.log("Current Time is " + currentTime);
+
+        // Find the distance between currentTime and the count down date
+        var distance = countDownDate - currentTime;
+        console.log("Distance is " + distance);
+
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Output the result in an element with id="countdownTimer"
+        document.getElementById("countdownTimerParagraph").innerHTML = "Announcement in " + days + "d " + hours + "h "
+            + minutes + "m " + seconds + "s ";
+
+        // If the countdown is over, we can trigger the start of the announcement.
+        if (distance < 0) {
+            clearInterval(countdownTimerInterval);
+            document.getElementById("countdownTimerParagraph").innerHTML = "";
+            document.getElementById("main-div").hidden = false;
+            countdownTimerInterval = null;
+            dateExpired = true;
+        }
+    }, 200);
+</script>
+
+<script src="js/bootstrap.bundle.js"></script>
+<script src="js/d3.v4.min.js"></script>
+<script src="js/simulation_state.js" type="text/javascript"></script>
+<script src="js/grid.js" type="text/javascript"></script>
+
+</body>
+</html>
